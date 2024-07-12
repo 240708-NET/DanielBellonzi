@@ -9,8 +9,9 @@ class Card
 {
 
     private char suit { get; }
-    private int value { get; }
+    public int value { get; }
     private char? face { get; } = null;
+
     public Card(char suit, int value)
     {
         this.suit = suit;
@@ -18,20 +19,28 @@ class Card
 
         switch(value)
         {
-            case 0:
+            case 1:
                 this.face = 'A';
+                this.value = 11;
                 break;
             case 11:
                 this.face = 'J';
+                this.value = 10;
                 break;
             case 12:
                 this.face = 'Q';
+                this.value = 10;
                 break;
             case 13:
                 this.face = 'K';
+                this.value = 10;
                 break;
                 
         }
 
+    }
+
+    public string printCard() {
+        return $"{(this.face != null ? this.face : this.value)}{this.suit}";
     }
 }

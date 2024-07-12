@@ -21,13 +21,9 @@ class Deck
     {
         
         // Build Deck
-        foreach (char i in suits)
-        {
-            for ( int j = 0; j < 14; j++ )
-            {
-                deckList.Add(new Card(i,j));
-            } 
-        }
+        this.BuildDeck();
+        this.ShuffleDeck();
+
     }
 
     public void ShuffleDeck() {
@@ -35,21 +31,40 @@ class Deck
         // Fisher - Yates Shuffle
         for ( int i = deckList.Count; i > 0; i-- )
         {
-            int sIndex = rand.Next(i);
-            if(sIndex != i)
+            Card temp;
+            int sIndex = rand.Next( i );
+            if( sIndex != i - 1 )
             {
-                Card temp = deckList.ElementAt(sIndex);
-                deckList.Insert(sIndex, deckList.ElementAt(i));
-                deckList.Insert(i, temp);
+                temp = deckList.ElementAt( sIndex );
+                deckList[sIndex] =  deckList.ElementAt(i - 1);
+                deckList[i - 1] = temp;
             }
+
         }
+
     }
 
-    public Card? DrawCard() {
-        if(deckList.Count == 0) return null;
+    public Card DrawCard() {
+
+        if(deckList.Count == 0) {
+            this.BuildDeck();
+            this.ShuffleDeck();
+        }
 
         Card drawnCard = deckList.ElementAt(0);
         deckList.RemoveAt(0);
         return drawnCard;
     }
+
+    private void BuildDeck()
+    {
+        foreach (char i in suits)
+        {
+            for ( int j = 1; j < 14; j++ )
+            {
+                deckList.Add(new Card(i,j));
+            } 
+        }
+    }
+
 }
