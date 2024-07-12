@@ -26,7 +26,8 @@ class Game{
         gameDeck = new Deck();
     }
 
-    public void PlayGame() {
+    public void PlayGame() 
+    {
 
         dealerHand = new Hand(true);
         playerHand = new Hand(false);
@@ -59,8 +60,13 @@ class Game{
         {
             dealerHand.DrawCard(gameDeck.DrawCard());
         }
+        this.ShowResults();
+        
+    }
 
-        if(bust) Console.WriteLine("Player Busts, Dealer Wins");
+    private void ShowResults()
+    {
+        if(playerHand.handValue > 21) Console.WriteLine("Player Busts, Dealer Wins");
         else if(dealerHand.handValue > 21) Console.WriteLine("Dealer Busts, Player Wins");
         else if(dealerHand.handValue == playerHand.handValue) Console.WriteLine("Draw");
         else if(dealerHand.handValue > playerHand.handValue) Console.WriteLine("Dealer Wins");

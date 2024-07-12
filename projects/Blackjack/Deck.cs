@@ -47,6 +47,7 @@ class Deck
     public Card DrawCard() {
 
         if(deckList.Count == 0) {
+            Console.WriteLine("Deck is out of cards, shuffling a new deck.");
             this.BuildDeck();
             this.ShuffleDeck();
         }
