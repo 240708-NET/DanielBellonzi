@@ -44,7 +44,7 @@ class Game{
 
         do
         {
-            Console.WriteLine($"Dealer hand: {dealerHand.ListHand(false)} Value: {dealerHand.handValue}");
+            Console.WriteLine($"Dealer hand: {dealerHand.ListHand(false)}");
             Console.WriteLine($"Player hand: {playerHand.ListHand(false)} Value: {playerHand.handValue}");
 
             Console.WriteLine("Would you like to Draw(d) or Hold(h)?");

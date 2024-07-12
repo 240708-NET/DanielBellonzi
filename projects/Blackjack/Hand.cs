@@ -36,6 +36,7 @@ class Hand
 
         foreach (Card c in handList)
         {
+            
             hand += $"| {c.printCard()} | ";
         }
 

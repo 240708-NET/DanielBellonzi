@@ -15,7 +15,7 @@ class Deck
     private char[] suits = ['♤', '♡', '♢', '♧'];
 
     //Initalize Random for Shuffle
-        Random rand = new Random();
+    Random rand = new Random();
 
     public Deck()
     {
