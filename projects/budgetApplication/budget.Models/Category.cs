@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotation;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace budget.Models
 {

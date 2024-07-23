@@ -69,9 +69,14 @@ namespace budgetApp
 
         }
 
-        public Category lookupCategory ()
+        // public Category lookupCategory ()
+        // {
+        //     return new Category();
+        // }
+
+        public string lookupCategory ()
         {
-            return new Category();
+            return "";
         }
 
         public void lookupTransaction ()

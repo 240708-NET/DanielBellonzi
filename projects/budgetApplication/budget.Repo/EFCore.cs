@@ -1,9 +1,12 @@
+using System;
+using budget.Models;
+
 namespace budget.Repo
 {
 
     public class EFCore : IRepository
     {
-        static readonly string connectionString = "";
+        // static readonly string connectionString = "";
 
 //     // Load Transactions
 //     List<Transaction> LoadAllTransactions();
