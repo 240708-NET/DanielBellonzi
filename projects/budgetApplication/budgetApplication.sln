@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "budgetApp", "budgetApp\budgetApp.csproj", "{993EE94A-5CF2-49D3-8362-6F115FEEBEB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "budget.Repo", "budget.Repo\budget.Repo.csproj", "{D0A38EAE-01AA-46FF-89A8-C2491994E5BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "budget.Models", "budget.Models\budget.Models.csproj", "{C4517461-F58F-400B-A98E-E307365BB21C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{993EE94A-5CF2-49D3-8362-6F115FEEBEB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{993EE94A-5CF2-49D3-8362-6F115FEEBEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{993EE94A-5CF2-49D3-8362-6F115FEEBEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{993EE94A-5CF2-49D3-8362-6F115FEEBEB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0A38EAE-01AA-46FF-89A8-C2491994E5BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0A38EAE-01AA-46FF-89A8-C2491994E5BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0A38EAE-01AA-46FF-89A8-C2491994E5BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0A38EAE-01AA-46FF-89A8-C2491994E5BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4517461-F58F-400B-A98E-E307365BB21C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4517461-F58F-400B-A98E-E307365BB21C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4517461-F58F-400B-A98E-E307365BB21C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4517461-F58F-400B-A98E-E307365BB21C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
