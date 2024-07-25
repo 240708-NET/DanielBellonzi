@@ -10,6 +10,6 @@ namespace budget.Models
         public string TransactionName { get; set; }
         public DateOnly TransactionDate { get; set; }
         public decimal TransactionAmount { get; set;}
-        public Category category { get; set; }
+        public Category Category { get; set; }
     }
 }
