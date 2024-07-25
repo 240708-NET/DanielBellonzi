@@ -66,9 +66,9 @@ namespace budget.Repo
         }
 
         // Load Category By Name
-        public Category GetCategoryByName( string name )
+        public Category? GetCategoryByName( string name )
         {
-            return new Category();
+            return (Category) context.Categories.Where( c => c.CategoryName == name);
         }
 
         // Save Category

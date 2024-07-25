@@ -22,8 +22,8 @@ namespace budget.Repo
         // Load Category By ID
         Category? GetCategoryById( int id );
 
-    //     // Load Category By Name
-    //     Category GetCategoryByName( string name );
+        // Load Category By Name
+        Category? GetCategoryByName( string name );
 
         // Save Category
         void SaveCategory( Category category );
