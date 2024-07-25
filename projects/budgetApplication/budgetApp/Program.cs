@@ -37,7 +37,7 @@
                             break;
                         case 4:
                             Console.Clear();
-                            cli.lookupCategory();
+                            cli.lookupCategory("");
                             break;
                         case 5:
                             Console.Clear();

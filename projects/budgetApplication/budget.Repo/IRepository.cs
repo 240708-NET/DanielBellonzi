@@ -11,10 +11,19 @@ namespace budget.Repo
         Transaction GetTransactionById( int id );
 
         // Load Transactions By Name
-        List<Transaction> GetTransactionByName( string name );
+        List<Transaction> GetTransactionsByName( string name );
+
+        // Load Transactions By Category
+        List<Transaction> GetTransactionsByCategory( Category category );
 
         // Save Transaction
         void SaveTransaction( Transaction transaction );
+
+        // Delete Transaction
+        void DeleteTransaction( Transaction transaction );
+
+        // Update Transaction
+        void UpdateTransaction( Transaction transaction );
 
         // Load Categories
         List<Category> LoadAllCategories();
@@ -24,6 +33,9 @@ namespace budget.Repo
 
         // Load Category By Name
         Category? GetCategoryByName( string name );
+
+        // Load Matching Categories
+        List<Category> GetCategoriesByName( string name );
 
         // Save Category
         void SaveCategory( Category category );

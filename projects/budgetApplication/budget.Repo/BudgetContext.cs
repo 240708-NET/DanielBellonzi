@@ -9,7 +9,13 @@ namespace budget.Repo
         public DbSet<Transaction> Transactions => Set<Transaction>();
         public DbSet<Category> Categories => Set<Category>();
 
-        public BudgetContext( DbContextOptions<BudgetContext> options) : base( options ){}
+        // public BudgetContext( DbContextOptions<BudgetContext> options) : base( options ){}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string ConnectionString = File.ReadAllText( "./../connectionstring" );
+            optionsBuilder.UseSqlServer(ConnectionString);
+        }
 
     }
 
