@@ -13,25 +13,18 @@ namespace budgetApp
 
         public void addTransaction () 
         {
-            string tName;
+            string? tName;
             Category tCategory;
             DateOnly tDate;
             decimal tValue;
-            // bool credit = false;
-            // string creditString;
             bool parsed;
+            string[] dateArray = [];
 
             Console.WriteLine ( "Please Enter a name or location for the transaction: " );
             tName = Console.ReadLine();
 
             tCategory = validateCategory();
-            // do
-            // {
-            //     Console.Write("(D)ebit or (C)redit?");
-            //     creditString = Console.ReadLine().ToLower();
-            // }
-            // while ( creditString[0] != 'c' && creditString[0] != 'd' );
-            // credit = creditString[0] == 'c' ? true : false;
+
             Console.WriteLine( "How much was the transaction? " );
             do
             {
@@ -43,7 +36,11 @@ namespace budgetApp
             }
             while ( !parsed );
             Console.WriteLine( "What was the date of the transaction? Please use mm/dd/yyyy ");
-            string[] dateArray = Console.ReadLine().Split("/").ToArray();
+            do
+            {
+                string? dateString = Console.ReadLine();
+                if( dateString != null ) dateArray = dateString.Split("/").ToArray();
+            } while ( dateArray.Length != 3 );
             int[] dateInt = new int[3];
             for ( int i = 0; i < 3; i++ ) dateInt[i] = Int32.Parse(dateArray[i]);
             tDate = new DateOnly ( dateInt[2], dateInt[0], dateInt[1] );
@@ -56,8 +53,11 @@ namespace budgetApp
         {
             string? newCat;
 
-            Console.WriteLine("Please enter new category name or type cancel(c) to cancel:");
-            newCat = Console.ReadLine();
+            do
+            {
+                Console.WriteLine("Please enter new category name or type cancel(c) to cancel:");
+                newCat = Console.ReadLine();
+            } while ( newCat == null );
 
             if ( newCat.ToLower() == "cancel" || newCat.ToLower() == "c" )
             {
@@ -117,12 +117,6 @@ namespace budgetApp
             {
                 Console.WriteLine( "\nNo matching transactions found. Please try again." );
             }
-            // else if( categories.Count == 1 )
-            // {
-            //     Console.Write( $"\r{categories[0].CategoryName}" );
-            //     if( Console.ReadKey().Key == ConsoleKey.Enter ) return categories[0];
-            //     else return validateCategory( searchString );
-            // }
             else
             {
                 int index;
@@ -144,7 +138,7 @@ namespace budgetApp
             string searchString = startString;
             ConsoleKey k;
             
-            Console.Write ( $"What category does it fall in? \n{startString}" );
+            Console.Write ( $"What category are you looking for? \n{startString}" );
 
             do{
                 k = Console.ReadKey().Key;
@@ -193,20 +187,65 @@ namespace budgetApp
 
         public void editTransaction ( Transaction transaction )
         {
-            Console.WriteLine( $"Would you like to edit(e) or delete(d) {transaction.TransactionName}?");
-            string input = Console.ReadLine().ToLower();
+            string? input;
+            do{
+                Console.WriteLine( $"Would you like to edit(e) or delete(d) {transaction.TransactionName}?");
+                input = Console.ReadLine();
+            } while ( input == null );
+
+            input = input.ToLower();
+
             if( input == "delete" || input == "d" )
             {
+                Console.WriteLine("attempting Delete");
                 file.DeleteTransaction( transaction );
             }
             else if( input == "edit" || input == "e" )
             {
-                // file.UpdateTransaction( transaction );
+                decimal tValue;
+                bool parsed;
+
+                Console.WriteLine ( "Please Enter a name or location for the transaction: " );
+                transaction.TransactionName = Console.ReadLine();
+
+                transaction.TransactionCategory = validateCategory();
+
+                Console.WriteLine( "How much was the transaction? " );
+                do
+                {
+                    parsed = Decimal.TryParse(Console.ReadLine(), out tValue);
+                    if( !parsed )
+                    {
+                        Console.WriteLine("Please enter a number value.");
+                    }
+                }
+                while ( !parsed );
+                transaction.TransactionAmount = tValue;
+                Console.WriteLine( "What was the date of the transaction? Please use mm/dd/yyyy ");
+                string[] dateArray = Console.ReadLine().Split("/").ToArray();
+                int[] dateInt = new int[3];
+                for ( int i = 0; i < 3; i++ ) dateInt[i] = Int32.Parse(dateArray[i]);
+                transaction.TransactionDate = new DateOnly ( dateInt[2], dateInt[0], dateInt[1] );
+
+                file.UpdateTransaction( transaction );
+
             }
 
         }
 
-
+        public void categoryUpdate ()
+        {
+            decimal total = 0;
+            Category category = validateCategory();
+            List<Transaction> transactionList = file.GetTransactionsByCategory( category );
+            Console.WriteLine ( $"All transactions in {category.CategoryName}:" );
+            foreach ( Transaction t in transactionList )
+            {
+                total += t.TransactionAmount;
+                Console.WriteLine( $"({t.TransactionID}) {t.TransactionName}: {t.TransactionDate} {t.TransactionAmount:C2}" );
+            }
+            Console.WriteLine( $"Total spending in {category.CategoryName}: {total:C2}" );
+        }
 
     }
 }

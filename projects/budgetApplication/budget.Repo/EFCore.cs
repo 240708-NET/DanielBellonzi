@@ -25,13 +25,16 @@ namespace budget.Repo
         // Load Transactions
         public List<Transaction> LoadAllTransactions()
         {
-            return context.Transactions.ToList();
+            var transactions = from t in context.Transactions.ToList()
+                join c in context.Categories.ToList() on t.TransactionCategory equals c
+                select new Transaction( t.TransactionName,  t.TransactionAmount, t.TransactionDate, c );
+            return (List<Transaction>) transactions.ToList();
         }
 
         // Load Transaction By ID
         public Transaction GetTransactionById( int id )
         {
-            Transaction transaction = context.Transactions.Find(id);
+            Transaction? transaction = context.Transactions.Find(id);
             return transaction;
         }
 
@@ -62,12 +65,13 @@ namespace budget.Repo
         public void DeleteTransaction ( Transaction transaction )
         {
             context.Transactions.Remove(transaction);
+            context.SaveChanges();
         }
 
         // Update Transaction
         public void UpdateTransaction( Transaction transaction )
         {
-            Transaction oldTransaction = GetTransactionById( transaction.TransactionID );
+            Transaction? oldTransaction = GetTransactionById( transaction.TransactionID );
 
             if ( oldTransaction != null )
             {
@@ -97,7 +101,7 @@ namespace budget.Repo
         public Category? GetCategoryByName( string name )
         {
             var category = context.Categories.Where( c => c.CategoryName == name).ToList();
-            return (Category) (category.Count != 0 ? category[0] : null);
+            return (Category?) (category.Count != 0 ? category[0] : null);
         }
 
         // Load Categories By Name
@@ -118,13 +122,13 @@ namespace budget.Repo
         }
 
         // Load Spending
-        public decimal GetSpending()
+        public decimal GetSpending( Category category )
         {
             decimal total = 0;
             List<Transaction> transactions = LoadAllTransactions();
             foreach ( Transaction t in transactions)
             {
-                total += t.TransactionAmount;
+                if( t.TransactionCategory == category ) total += t.TransactionAmount;
             }
             return total;
         }
@@ -133,28 +137,16 @@ namespace budget.Repo
         public Dictionary<string, decimal> GetSpendingByCategory()
         {
             Dictionary<string, decimal> spendingList = new Dictionary<string, decimal>();
-            List<Transaction> transactions = LoadAllTransactions();
-            Console.WriteLine(transactions.Count);
+            List<Transaction> transactions = LoadAllTransactions() ;
             foreach ( Transaction t in transactions )
             {
-                // Console.WriteLine("check");
-                // Console.WriteLine( t.TransactionCategory.ToString() );
-                Console.WriteLine( t );
-                // if ( !spendingList.ContainsKey(t.TransactionCategory.CategoryName) )
-                // {
-                //     spendingList.Add(t.TransactionCategory.CategoryName, t.TransactionAmount);
-                // }
-                // else
-                // {
-                //     spendingList[t.TransactionCategory.CategoryName] += t.TransactionAmount;
-                // }
-                if ( !spendingList.ContainsKey(t.TransactionName) )
+                if ( !spendingList.ContainsKey( t.TransactionCategory.CategoryName) )
                 {
-                    spendingList.Add(t.TransactionName, t.TransactionAmount);
+                    spendingList.Add(t.TransactionCategory.CategoryName, t.TransactionAmount);
                 }
                 else
                 {
-                    spendingList[t.TransactionName] += t.TransactionAmount;
+                    spendingList[t.TransactionCategory.CategoryName] += t.TransactionAmount;
                 }
 
             }

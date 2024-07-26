@@ -26,7 +26,6 @@ namespace budget.Models
 
         public override string ToString()
         {
-            Console.WriteLine( $"category is null {(TransactionCategory == null)}");
             return $"{TransactionName}: {TransactionCategory}";
         }
         

@@ -41,7 +41,7 @@ namespace budget.Repo
         void SaveCategory( Category category );
 
         // Load Spending
-        decimal GetSpending();
+        decimal GetSpending( Category category );
 
         // Load Spending by Category
         Dictionary<string, decimal> GetSpendingByCategory();

@@ -19,9 +19,6 @@ namespace budget.Models
 
         public override string ToString()
         {
-            Console.WriteLine("thisfdls");
-            Console.WriteLine(this.CategoryID);
-            Console.WriteLine(this.CategoryName);
             return $"Category {this.CategoryID}: {this.CategoryName}";
         }
 
